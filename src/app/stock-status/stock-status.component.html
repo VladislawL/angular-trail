@@ -1,0 +1,14 @@
+<div [ngSwitch]="stock">
+  <div *ngSwitchCase="StockStatus.InStock" class="stock-status in-stock">
+    <span>In Stock</span>
+  </div>
+  <div *ngSwitchCase="StockStatus.OutOfStock" class="stock-status out-of-stock">
+    <span>Out of Stock</span>
+  </div>
+  <div *ngSwitchCase="StockStatus.AlmostSoldOut" class="stock-status limited-stock">
+    <span>Almost Sold Out</span>
+  </div>
+  <div *ngSwitchDefault class="stock-status unknown-stock">
+    <span>Status Unknown</span>
+  </div>
+</div>

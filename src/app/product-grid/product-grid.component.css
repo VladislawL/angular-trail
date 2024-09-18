@@ -1,0 +1,13 @@
+.product-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  padding: 20px;
+  width: 100%;
+}
+
+.product-grid--product-tile {
+  flex: 0 0 25%; /* Allows the items to shrink and grow based on available space, minimum size 200px */
+  max-width: 25%;
+  margin-top: 20px;
+}

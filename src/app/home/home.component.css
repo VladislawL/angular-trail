@@ -1,0 +1,12 @@
+.home-container {
+  display: flex;
+}
+
+app-filter {
+  width: 20%;
+  padding: 20px;
+}
+
+app-product-grid {
+  width: 80%;
+}
