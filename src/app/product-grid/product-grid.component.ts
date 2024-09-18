@@ -13,7 +13,7 @@ import {Observable} from "rxjs";
   styleUrl: './product-grid.component.css',
   encapsulation: ViewEncapsulation.None
 })
-export class ProductGridComponent implements OnChanges{
+export class ProductGridComponent implements OnChanges {
 
   @Input()
   filterParams: FilterParams | undefined;
@@ -30,4 +30,19 @@ export class ProductGridComponent implements OnChanges{
     }
   }
 
+  hasFilters(): boolean {
+    return !!this.filterParams && (this.filterParams.minPrice != undefined || this.filterParams.maxPrice != undefined || this.filterParams.stock != undefined || this.filterParams.rating != undefined || this.filterParams.reviews != undefined);
+  }
+
+  removeFilter(filterKey: string): void {
+    if (this.filterParams) {
+      (this.filterParams as any)[filterKey] = undefined;
+      this.products$ = this.productService.getProducts(this.filterParams);
+    }
+  }
+
+  removeAllFilters() {
+    this.filterParams = undefined;
+    this.products$ = this.productService.getProducts(this.filterParams);
+  }
 }

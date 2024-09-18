@@ -20,11 +20,11 @@
 
 .search-container input {
   width: 200px;
-  padding: 10px 10px 10px 35px; /* Adds space for the icon */
-  border-radius: 50px; /* Rounds the input */
-  border: 1px solid var(--primary-color); /* Light grey border */
+  padding: 10px 10px 10px 35px;
+  border-radius: 50px;
+  border: 1px solid var(--primary-color);
   font-size: 16px;
-  outline: none; /* Removes the blue outline on focus */
+  outline: none;
   color: var(--primary-color);
 }
 
@@ -33,5 +33,5 @@
   left: 10px;
   top: 50%;
   transform: translateY(-50%);
-  font-size: 16px; /* Adjust icon size */
+  font-size: 16px;
 }

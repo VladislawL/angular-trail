@@ -8,6 +8,10 @@
     <input type="text" class="search-box" placeholder="Search" (change)="onSearch()" [(ngModel)]="query" />
     <i class="fa-solid fa-magnifying-glass"></i>
   </div>
+  <div class="header-item">
+    <a *ngIf="!isAuthenticated()" routerLink="/auth"><i class="fa-solid fa-user"></i>Login</a>
+    <a *ngIf="isAuthenticated()" (click)="logout()"><i class="fa-solid fa-user"></i>Logout</a>
+  </div>
   <div class="header-item cart">
     <a [routerLink]="['/cart']">
       <i class="fa-solid fa-cart-shopping"></i>

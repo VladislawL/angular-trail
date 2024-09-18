@@ -1,0 +1,48 @@
+<app-header></app-header>
+
+<div class="auth-container">
+  <form #authForm="ngForm" (ngSubmit)="onSubmit(authForm)" class="auth-form">
+    <h2>Sign in</h2>
+
+    <div class="form-group">
+      <label for="email">Email address</label>
+      <input
+        type="email"
+        id="email"
+        name="email"
+        class="form-control"
+        placeholder="Email"
+        required
+        [(ngModel)]="user.email"
+        #email="ngModel"
+      />
+      <div *ngIf="email.invalid && email.touched" class="error-message">
+        Email is required and must be valid.
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="password">Password</label>
+      <input
+        type="password"
+        id="password"
+        name="password"
+        class="form-control"
+        placeholder="Password"
+        required
+        minlength="6"
+        [(ngModel)]="user.password"
+        #password="ngModel"
+      />
+      <div *ngIf="password.invalid && password.touched" class="error-message">
+        Password is required and must be at least 6 characters long.
+      </div>
+    </div>
+
+    <button type="submit" class="btn-submit" [disabled]="authForm.invalid">Sign in</button>
+
+    <div class="signup-link">
+      You don't have an account? Please, <a href="/signup">click here to register!</a>
+    </div>
+  </form>
+</div>

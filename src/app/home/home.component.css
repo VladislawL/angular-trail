@@ -2,11 +2,15 @@
   display: flex;
 }
 
+/* Filter section */
 app-filter {
   width: 20%;
   padding: 20px;
+  border-right: 1px solid #ddd;
 }
 
+/* Product grid section */
 app-product-grid {
   width: 80%;
+  padding-left: 20px;
 }

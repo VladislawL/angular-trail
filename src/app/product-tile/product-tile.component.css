@@ -27,7 +27,6 @@
   transform: translateY(-5px);
 }
 
-/* Product title */
 .product-tile span {
   display: block;
   font-weight: bold;
@@ -42,7 +41,6 @@
   align-items: center;
 }
 
-/* Rating section */
 .rating {
   display: flex;
   align-items: center;
@@ -53,11 +51,10 @@
 }
 
 .rating i {
-  color: #f39c12; /* Star color */
+  color: #f39c12;
   margin-left: 5px;
 }
 
-/* Responsive design adjustments */
 @media (max-width: 768px) {
   .product-tile {
     flex: 1 1 150px;

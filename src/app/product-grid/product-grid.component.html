@@ -1,4 +1,29 @@
 <div *ngIf="(products$ | async) as products">
+
+  <div class="filter-badges" *ngIf="hasFilters()">
+    <span class="filter-badge" *ngIf="filterParams?.minPrice">
+      Min {{ filterParams?.minPrice }}
+      <button (click)="removeFilter('minPrice')">x</button>
+    </span>
+    <span class="filter-badge" *ngIf="filterParams?.maxPrice">
+      Max {{ filterParams?.maxPrice }}
+      <button (click)="removeFilter('maxPrice')">x</button>
+    </span>
+    <span class="filter-badge" *ngIf="filterParams?.stock">
+      Stock: {{ filterParams?.stock === 'available' ? 'Available' : 'Not Available' }}
+      <button (click)="removeFilter('stock')">x</button>
+    </span>
+    <span class="filter-badge" *ngIf="filterParams?.rating">
+      Rating: {{ filterParams?.rating }}
+      <button (click)="removeFilter('rating')">x</button>
+    </span>
+    <span class="filter-badge" *ngIf="filterParams?.reviews">
+      Reviews: {{ filterParams?.reviews === 'available' ? 'Present' : 'Not Present' }}
+      <button (click)="removeFilter('reviews')">x</button>
+    </span>
+    <button (click)="removeAllFilters()" class="remove-filters">Remove All Filters</button>
+  </div>
+
   <div class="product-grid">
     <app-product-tile class="product-grid--product-tile" *ngFor="let product of products"
                       [product]="product" />

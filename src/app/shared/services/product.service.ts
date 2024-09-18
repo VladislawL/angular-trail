@@ -18,7 +18,7 @@ export class ProductService {
     let baseParams = new HttpParams();
     if (filterParams != null) {
       if (this.isNotEmpty(filterParams.query)) {
-        baseParams = baseParams.set('name', filterParams.query);
+        baseParams = baseParams.set('title', filterParams.query);
       }
       if (this.isNotEmpty(filterParams.minPrice)) {
         baseParams = baseParams.set('price_gte', filterParams.minPrice);

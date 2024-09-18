@@ -1,0 +1,67 @@
+<app-header></app-header>
+
+<div class="signup-container">
+  <form #signupForm="ngForm" (ngSubmit)="onSubmit(signupForm)" class="signup-form">
+    <h2>Sign up</h2>
+
+    <div class="form-group">
+      <label for="email">Email address</label>
+      <input
+        type="email"
+        id="email"
+        name="email"
+        class="form-control"
+        placeholder="Email"
+        required
+        [(ngModel)]="user.email"
+        #email="ngModel"
+      />
+      <div *ngIf="email.invalid && email.touched" class="error-message">
+        Email is required and must be valid.
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="password">Password</label>
+      <input
+        type="password"
+        id="password"
+        name="password"
+        class="form-control"
+        placeholder="Password"
+        required
+        minlength="6"
+        [(ngModel)]="user.password"
+        #password="ngModel"
+      />
+      <div *ngIf="password.invalid && password.touched" class="error-message">
+        Password is required and must be at least 6 characters long.
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="confirmPassword">Confirm Password</label>
+      <input
+        type="password"
+        id="confirmPassword"
+        name="confirmPassword"
+        class="form-control"
+        placeholder="Confirm Password"
+        required
+        [(ngModel)]="user.confirmPassword"
+        #confirmPassword="ngModel"
+      />
+      <div *ngIf="passwordMismatch && confirmPassword.touched" class="error-message">
+        Passwords do not match.
+      </div>
+    </div>
+
+    <button type="submit" class="btn-submit" [disabled]="signupForm.invalid || passwordMismatch">
+      Sign up
+    </button>
+
+    <div class="signin-link">
+      Already have an account? <a href="/signin">Sign in here!</a>
+    </div>
+  </form>
+</div>
