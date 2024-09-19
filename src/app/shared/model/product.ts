@@ -14,10 +14,10 @@ export interface Rating {
 }
 
 export interface FilterParams {
-  query: string | undefined;
-  minPrice: number | undefined;
-  maxPrice: number | undefined;
-  stock: boolean | undefined;
-  rating: number | undefined;
-  reviews: boolean | undefined;
+  query: string;
+  minPrice: string;
+  maxPrice: string;
+  stock: string;
+  rating: string;
+  reviews: string;
 }

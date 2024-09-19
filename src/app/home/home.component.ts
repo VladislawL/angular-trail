@@ -25,11 +25,11 @@ export class HomeComponent implements OnInit {
     this.route.queryParams.subscribe(params => {
       this.filterParams = {
         query: params['query'] || undefined,
-        minPrice: params['minPrice'] ? +params['minPrice'] : undefined,
-        maxPrice: params['maxPrice'] ? +params['maxPrice'] : undefined,
-        stock: params['stock'] ? params['stock'] === 'true' : undefined,
-        rating: params['rating'] ? +params['rating'] : undefined,
-        reviews: params['reviews'] ? params['reviews'] === 'true' : undefined
+        minPrice: params['minPrice'] ? params['minPrice'] : undefined,
+        maxPrice: params['maxPrice'] ? params['maxPrice'] : undefined,
+        stock: params['stock'] ? params['stock'] : undefined,
+        rating: params['rating'] ? params['rating'] : undefined,
+        reviews: params['reviews'] ? params['reviews'] : undefined
       };
     });
   }
@@ -47,11 +47,11 @@ export class HomeComponent implements OnInit {
     if (this.filterParams == null) {
       this.filterParams = {
         query: query,
-        minPrice: undefined,
-        maxPrice: undefined,
-        stock: undefined,
-        rating: undefined,
-        reviews: undefined
+        minPrice: '',
+        maxPrice: '',
+        stock: '',
+        rating: '',
+        reviews: ''
       };
     } else {
       this.filterParams.query = query;

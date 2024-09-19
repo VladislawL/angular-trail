@@ -1,8 +1,8 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpParams} from "@angular/common/http";
 import {FilterParams, Product} from "../model/product";
-import {Observable} from "rxjs";
 import {Review} from "../model/review";
+import {Observable} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
@@ -17,26 +17,26 @@ export class ProductService {
   getProducts(filterParams: FilterParams | undefined): Observable<Product[]> {
     let baseParams = new HttpParams();
     if (filterParams != null) {
-      if (filterParams.query !== undefined && filterParams.query !== null && filterParams.query !== '') {
+      if (this.isNotEmpty(filterParams.query)) {
         baseParams = baseParams.set('name', filterParams.query);
       }
-      if (filterParams.minPrice !== undefined && filterParams.minPrice !== null && filterParams.minPrice.toString() !== '') {
+      if (this.isNotEmpty(filterParams.minPrice)) {
         baseParams = baseParams.set('price_gte', filterParams.minPrice);
       }
-      if (filterParams.maxPrice !== undefined && filterParams.maxPrice !== null && filterParams.maxPrice.toString() !== '') {
+      if (this.isNotEmpty(filterParams.maxPrice)) {
         baseParams = baseParams.set('price_lte', filterParams.maxPrice);
       }
-      if (filterParams.stock !== undefined && filterParams.stock !== null && filterParams.stock.toString() !== '') {
+      if (this.isNotEmpty(filterParams.stock)) {
         if (filterParams.stock) {
           baseParams = baseParams.set('stock_gt', '0');
         } else {
           baseParams = baseParams.set('stock', '0');
         }
       }
-      if (filterParams.rating !== undefined && filterParams.rating !== null && filterParams.rating.toString() !== '') {
-        baseParams = baseParams.set('rating.rate_gte', filterParams.rating.toString());
+      if (this.isNotEmpty(filterParams.rating)) {
+        baseParams = baseParams.set('rating.rate_gte', filterParams.rating);
       }
-      if (filterParams.reviews !== undefined && filterParams.reviews !== null && filterParams.reviews.toString() !== '') {
+      if (this.isNotEmpty(filterParams.reviews)) {
         if (filterParams.reviews) {
           baseParams = baseParams.set('rating.count_gt', '0');
         } else {
@@ -64,5 +64,13 @@ export class ProductService {
 
   updateProduct(id: string,product: Product): Observable<Product> {
     return this.http.put<Product>(`http://localhost:3000/products/${id}`, product);
+  }
+
+  isNotEmpty(value: any): boolean {
+    return !this.isEmpty(value);
+  }
+
+  isEmpty(value: any): boolean {
+    return !value;
   }
 }
