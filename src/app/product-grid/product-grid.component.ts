@@ -1,7 +1,7 @@
-import {Component, ViewEncapsulation} from '@angular/core';
+import {Component, Input, OnChanges, SimpleChanges, ViewEncapsulation} from '@angular/core';
 import {CommonModule} from "@angular/common";
 import {ProductTileComponent} from "../product-tile/product-tile.component";
-import {Product} from "../shared/model/product";
+import {FilterParams, Product} from "../shared/model/product";
 import {ProductService} from "../shared/services/product.service";
 import {Observable} from "rxjs";
 
@@ -13,12 +13,21 @@ import {Observable} from "rxjs";
   styleUrl: './product-grid.component.css',
   encapsulation: ViewEncapsulation.None
 })
-export class ProductGridComponent {
+export class ProductGridComponent implements OnChanges{
+
+  @Input()
+  filterParams: FilterParams | undefined;
 
   products$: Observable<Product[]>;
 
   constructor(private productService: ProductService) {
-    this.products$ = this.productService.getProducts();
+    this.products$ = this.productService.getProducts(this.filterParams);
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['filterParams']) {
+      this.products$ = this.productService.getProducts(this.filterParams);
+    }
   }
 
 }

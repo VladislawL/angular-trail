@@ -5,7 +5,7 @@
     </a>
   </div>
   <div class="header-item search-container">
-    <input type="text" class="search-box" placeholder="Search" />
+    <input type="text" class="search-box" placeholder="Search" (change)="onSearch()" [(ngModel)]="query" />
     <i class="fa-solid fa-magnifying-glass"></i>
   </div>
   <div class="header-item cart">

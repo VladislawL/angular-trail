@@ -1,4 +1,19 @@
-<div class="product-grid">
-  <app-product-tile class="product-grid--product-tile" *ngFor="let product of (products$ | async)"
-                    [product]="product" />
+<div *ngIf="(products$ | async) as products">
+  <div class="product-grid">
+    <app-product-tile class="product-grid--product-tile" *ngFor="let product of (products$ | async)"
+                      [product]="product" />
+  </div>
+
+  <!-- Check if there are products -->
+  <div *ngIf="products.length > 0; else noProducts">
+    <p>Total products found: {{ products.length }}</p>
+    <!-- Your product grid goes here -->
+  </div>
 </div>
+
+<!-- No products found message -->
+<ng-template #noProducts>
+  <div class="product-grid--no-products">
+    No products found
+  </div>
+</ng-template>

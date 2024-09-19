@@ -16,5 +16,13 @@
     <label for="rating">Rating</label>
     <input id="rating" formControlName="rating" type="number" min="1" max="5">
   </div>
-  <button type="submit">Apply Filters</button>
+  <div>
+    <label for="reviews">Reviews</label>
+    <select id="reviews" formControlName="reviews">
+      <option value="">Any</option>
+      <option value="available">Present</option>
+      <option value="notAvailable">Not Present</option>
+    </select>
+  </div>
+  <button type="submit" (click)="onFilter()">Apply Filters</button>
 </form>

@@ -1,5 +1,5 @@
-<app-header></app-header>
+<app-header (queryEvent)="handleSearch($event)" />
 <div class="home-container">
-  <app-filter></app-filter>
-  <app-product-grid></app-product-grid>
+  <app-filter (filterParams)="handleFilters($event)" />
+  <app-product-grid [filterParams]="filterParams"  />
 </div>

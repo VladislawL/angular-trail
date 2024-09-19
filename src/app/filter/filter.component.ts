@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
-import {FormBuilder, FormGroup, ReactiveFormsModule} from "@angular/forms";
+import {Component, EventEmitter, Output} from '@angular/core';
+import {FormBuilder, FormControl, FormGroup, ReactiveFormsModule} from "@angular/forms";
 import {CommonModule} from "@angular/common";
+import {FilterParams} from "../shared/model/product";
 
 @Component({
   selector: 'app-filter',
@@ -10,6 +11,10 @@ import {CommonModule} from "@angular/common";
   styleUrl: './filter.component.css'
 })
 export class FilterComponent {
+
+  @Output()
+  filterParams = new EventEmitter<FilterParams>();
+
   filterForm: FormGroup;
 
   constructor(private fb: FormBuilder) {
@@ -17,11 +22,13 @@ export class FilterComponent {
       minPrice: [''],
       maxPrice: [''],
       stock: [''],
-      rating: ['']
+      rating: [''],
+      reviews: ['']
     });
   }
 
   onFilter() {
-    console.log(this.filterForm.value);
+    this.filterParams.emit(this.filterForm.value);
   }
+
 }
