@@ -7,10 +7,10 @@
     <h1>{{ product.title }}</h1>
     <div class="rating-container">
       <div class="rating">
-        <span>{{ product.rating.rate }}</span>
+        <span>{{ product.rating?.rate }}</span>
         <i class="fa-solid fa-star"></i>
       </div>
-      <span class="count">({{ product.rating.count }})</span>
+      <span class="count">({{ product.rating?.count }})</span>
     </div>
     <div class="price">Price: {{ product.price }}</div>
     <app-add-to-cart [disabled]="!isProductPurchasable(product)" />

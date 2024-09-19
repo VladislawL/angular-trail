@@ -61,4 +61,8 @@ export class ProductService {
   isProductPurchasable(product: Product): boolean {
     return product.stock > 0;
   }
+
+  updateProduct(id: string,product: Product): Observable<Product> {
+    return this.http.put<Product>(`http://localhost:3000/products/${id}`, product);
+  }
 }

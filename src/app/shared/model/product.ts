@@ -5,7 +5,7 @@ export interface Product {
   stock: number;
   description: string;
   image: string;
-  rating: Rating;
+  rating: Rating | undefined;
 }
 
 export interface Rating {

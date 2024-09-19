@@ -4,12 +4,13 @@
     <span>{{ product.title }}</span>
     <div class="rating-container">
       <div class="rating">
-        <span>{{ product.rating.rate }}</span>
+        <span>{{ product.rating?.rate }}</span>
         <i class="fa-solid fa-star"></i>
       </div>
       <div class="price">{{ product.price }}</div>
     </div>
 
     <app-add-to-cart/>
+    <a [routerLink]="['/product/edit', product.id]">Edit</a>
   </div>
 </a>

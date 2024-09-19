@@ -84,7 +84,7 @@ export class HomeComponent implements OnInit {
     this.router.navigate([], {
       relativeTo: this.route,
       queryParams: queryParams,
-      queryParamsHandling: 'merge'
+      queryParamsHandling: 'replace'
     });
   }
 }
