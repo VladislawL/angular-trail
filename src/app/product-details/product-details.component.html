@@ -13,7 +13,7 @@
       <span class="count">({{ product.rating?.count }})</span>
     </div>
     <div class="price">Price: {{ product.price }}</div>
-    <app-add-to-cart [disabled]="!isProductPurchasable(product)" />
+    <app-add-to-cart [disabled]="!isProductPurchasable(product)" [product]="product" />
     <app-stock-status [stock]="getStock(product)" />
     <div class="description">{{ product.description }}</div>
   </div>

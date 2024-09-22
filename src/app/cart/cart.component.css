@@ -1,0 +1,24 @@
+.cart-container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #fff;
+}
+
+.cart-header {
+  display: grid;
+  grid-template-columns: 1fr 3fr 1fr 1fr 1fr 1fr;
+  font-weight: bold;
+  background-color: #f9f9f9;
+  padding: 12px;
+  border-bottom: 1px solid #ddd;
+}
+
+.cart-entries {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
