@@ -1,0 +1,20 @@
+<header class="main-header">
+  <div class="header-item brand-logo">
+    <a [routerLink]="['/']">
+      <i class="fa-solid fa-house"></i>
+    </a>
+  </div>
+  <div class="header-item search-container">
+    <input type="text" class="search-box" placeholder="Search" (change)="onSearch()" [(ngModel)]="query" />
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </div>
+  <div class="header-item">
+    <a *ngIf="!isAuthenticated()" routerLink="/auth/login"><i class="fa-solid fa-user"></i>Login</a>
+    <a *ngIf="isAuthenticated()" (click)="logout()"><i class="fa-solid fa-user"></i>Logout</a>
+  </div>
+  <div class="header-item cart">
+    <a [routerLink]="['/cart']">
+      <i class="fa-solid fa-cart-shopping"></i>
+    </a>
+  </div>
+</header>

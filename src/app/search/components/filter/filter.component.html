@@ -1,0 +1,30 @@
+<form [formGroup]="filterForm" (ngSubmit)="onFilter()">
+  <div>
+    <label>Price</label>
+    <input id="minPrice" formControlName="minPrice" type="number">
+    <div class="error-message" *ngIf="minPrice?.hasError('min')">Price must be greater than 0</div>
+    <input id="maxPrice" formControlName="maxPrice" type="number">
+    <div class="error-message" *ngIf="maxPrice?.hasError('min')">Price must be greater than 0</div>
+  </div>
+  <div>
+    <label for="stock">Stock</label>
+    <select id="stock" formControlName="stock">
+      <option value="">Any</option>
+      <option value="available">Available</option>
+      <option value="notAvailable">Not Available</option>
+    </select>
+  </div>
+  <div>
+    <label for="rating">Rating</label>
+    <input id="rating" formControlName="rating" type="number" min="1" max="5">
+  </div>
+  <div>
+    <label for="reviews">Reviews</label>
+    <select id="reviews" formControlName="reviews">
+      <option value="">Any</option>
+      <option value="available">Present</option>
+      <option value="notAvailable">Not Present</option>
+    </select>
+  </div>
+  <button type="submit">Apply Filters</button>
+</form>

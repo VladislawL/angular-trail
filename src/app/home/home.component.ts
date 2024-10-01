@@ -1,9 +1,10 @@
 import {Component, OnInit} from '@angular/core';
-import {HeaderComponent} from "../header/header.component";
-import {ProductGridComponent} from "../product-grid/product-grid.component";
-import {FilterComponent} from "../filter/filter.component";
-import {FilterParams} from "../shared/model/product";
-import {ActivatedRoute, Router} from "@angular/router";
+import {HeaderComponent} from "../shared/components/header/header.component";
+import {ProductGridComponent} from "../product/components/product-grid/product-grid.component";
+import {FilterComponent} from "../search/components/filter/filter.component";
+import {FilterParams} from "../product/models/product";
+import {ActivatedRoute} from "@angular/router";
+import {SearchService} from "../search/services/search.service";
 
 @Component({
   selector: 'app-home',
@@ -17,8 +18,8 @@ export class HomeComponent implements OnInit {
   filterParams: FilterParams | undefined;
 
   constructor(
-    private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private searchService: SearchService
   ) {}
 
   ngOnInit() {
@@ -43,48 +44,9 @@ export class HomeComponent implements OnInit {
     this.updateUrlFilters();
   }
 
-  handleSearch(query: string) {
-    if (this.filterParams == null) {
-      this.filterParams = {
-        query: query,
-        minPrice: '',
-        maxPrice: '',
-        stock: '',
-        rating: '',
-        reviews: ''
-      };
-    } else {
-      this.filterParams.query = query;
-    }
-    this.updateUrlFilters();
-  }
-
   updateUrlFilters() {
-    const queryParams: any = {};
-
-    if (this.filterParams?.query && this.filterParams.query.toString() !== '') {
-      queryParams['query'] = this.filterParams.query;
+    if (this.filterParams) {
+      this.searchService.updateUrlFilters(this.filterParams);
     }
-    if (this.filterParams?.minPrice && this.filterParams.minPrice.toString() !== '') {
-      queryParams['minPrice'] = this.filterParams.minPrice;
-    }
-    if (this.filterParams?.maxPrice && this.filterParams.maxPrice.toString() !== '') {
-      queryParams['maxPrice'] = this.filterParams.maxPrice;
-    }
-    if (this.filterParams?.stock !== undefined && this.filterParams.stock.toString() !== '') {
-      queryParams['stock'] = this.filterParams.stock;
-    }
-    if (this.filterParams?.rating && this.filterParams.rating.toString() !== '') {
-      queryParams['rating'] = this.filterParams.rating;
-    }
-    if (this.filterParams?.reviews !== undefined && this.filterParams.reviews.toString() !== '') {
-      queryParams['reviews'] = this.filterParams.reviews;
-    }
-
-    this.router.navigate([], {
-      relativeTo: this.route,
-      queryParams: queryParams,
-      queryParamsHandling: 'replace'
-    });
   }
 }

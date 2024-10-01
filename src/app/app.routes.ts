@@ -1,11 +1,10 @@
 import { Routes } from '@angular/router';
 import { HomeComponent } from './home/home.component';
-import {ProductDetailsComponent} from "./product-details/product-details.component";
-import {ProductEditComponent} from "./product-edit/product-edit.component";
-import {CartComponent} from "./cart/cart.component";
-import {LoginComponent} from "./login/login.component";
-import {SignupComponent} from "./signup/signup.component";
-import {authGuard} from "./shared/guards/auth.guard";
+import {ProductDetailsComponent} from "./product/components/product-details/product-details.component";
+import {ProductEditComponent} from "./product/components/product-edit/product-edit.component";
+import {CartComponent} from "./cart/components/cart/cart.component";
+import {authGuard} from "./auth/guards/auth.guard";
+import {AuthComponent} from "./auth/components/auth/auth.component";
 
 export const routes: Routes = [
   {
@@ -29,13 +28,8 @@ export const routes: Routes = [
     title: 'Cart'
   },
   {
-    path: 'auth',
-    component: LoginComponent,
+    path: 'auth/:mode',
+    component: AuthComponent,
     title: 'Login Page'
-  },
-  {
-    path: 'signup',
-    component: SignupComponent,
-    title: 'Sign Up'
   }
 ];
