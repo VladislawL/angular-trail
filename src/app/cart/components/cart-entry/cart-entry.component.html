@@ -1,0 +1,12 @@
+<div class="cart-entry" [@flyInOut]>
+  <div>{{ cartEntry.productId }}</div>
+  <div>{{ cartEntry.title }}</div>
+  <div>{{ cartEntry.count }}</div>
+  <div>{{ cartEntry.price }}</div>
+  <div>{{ +cartEntry.count * +cartEntry.price }}</div>
+  <div>
+    <button class="remove-btn" (click)="removeCartEntry(cartEntry.id)">
+      <i class="fa-solid fa-times"></i>
+    </button>
+  </div>
+</div>

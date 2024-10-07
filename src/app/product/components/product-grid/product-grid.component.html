@@ -1,0 +1,25 @@
+<div *ngIf="(products$ | async) as products">
+
+  <div class="filter-badges" *ngIf="hasFilters()">
+    <span class="filter-badge" *ngFor="let badge of filterBadges">
+      {{ badge.label }}: {{ badge.value }}
+      <button (click)="removeFilter(badge.key)">x</button>
+    </span>
+    <button (click)="removeAllFilters()" class="remove-filters">Remove All Filters</button>
+  </div>
+
+  <div class="product-grid">
+    <app-product-tile class="product-grid--product-tile" *ngFor="let product of products"
+                      [product]="product" />
+  </div>
+
+  <div *ngIf="products.length > 0; else noProducts">
+    <p>Total products found: {{ products.length }}</p>
+  </div>
+</div>
+
+<ng-template #noProducts>
+  <div class="product-grid--no-products">
+    No products found
+  </div>
+</ng-template>

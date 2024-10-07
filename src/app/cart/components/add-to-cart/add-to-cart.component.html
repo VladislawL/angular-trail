@@ -1,0 +1,10 @@
+<div class="add-to-cart-container" *ngIf="!cartAdded">
+  <button (click)="addToCart($event)" [disabled]="disabled">Add to Cart</button>
+</div>
+
+<div class="counter-container" *ngIf="cartAdded">
+  <button (click)="updateQuantity(-1, $event)" [disabled]="quantity === 0">-</button>
+  <span>{{ quantity }}</span>
+  <button (click)="updateQuantity(1, $event)" [disabled]="quantity === 5">+</button>
+  <button (click)="removeFromCart($event)">Remove</button>
+</div>

@@ -1,0 +1,21 @@
+.cart-entry {
+  display: grid;
+  grid-template-columns: 1fr 3fr 1fr 1fr 1fr 1fr;
+  padding: 12px;
+  border-bottom: 1px solid #ddd;
+  align-items: center;
+  transition: all 0.5s ease-in-out;
+}
+
+.cart-entry .remove-btn {
+  background-color: #dc3545;
+  border: none;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.cart-entry .remove-btn:hover {
+  background-color: #c82333;
+}

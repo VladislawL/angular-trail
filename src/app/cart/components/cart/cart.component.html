@@ -1,0 +1,19 @@
+<div class="cart-container">
+  <div class="cart-header">
+    <div>Product ID</div>
+    <div>Product Name</div>
+    <div>Count</div>
+    <div>Price</div>
+    <div>Total Price</div>
+    <div>Action</div>
+  </div>
+
+  <div *ngIf="cartEntries$ | async as cartEntries" class="cart-entries">
+    <div *ngIf="cartEntries.length > 0; else emptyCart">
+      <app-cart-entry *ngFor="let cartEntry of cartEntries" [cartEntry]="cartEntry" (removeEvent)="refreshCart()"></app-cart-entry>
+    </div>
+    <ng-template #emptyCart>
+      <p>Your cart is empty</p>
+    </ng-template>
+  </div>
+</div>
