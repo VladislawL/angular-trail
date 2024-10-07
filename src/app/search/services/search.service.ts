@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {FilterParams} from "../../product/models/product";
-import {Router} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {ParamsMapping} from "../../shared/models/params-mapping";
 
 @Injectable({
@@ -9,7 +9,8 @@ import {ParamsMapping} from "../../shared/models/params-mapping";
 export class SearchService {
 
   constructor(
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute
   ) {}
 
   updateUrlFilters(filterParams: FilterParams) {
@@ -42,5 +43,17 @@ export class SearchService {
       queryParams: queryParams,
       queryParamsHandling: 'replace'
     });
+  }
+
+  getFilterParams(): FilterParams {
+    const params = this.route.snapshot.queryParams;
+    return {
+      query: params['query'] || '',
+      minPrice: params['minPrice'] || '',
+      maxPrice: params['maxPrice'] || '',
+      stock: params['stock'] || '',
+      rating: params['rating'] || '',
+      reviews: params['rating.count'] || ''
+    };
   }
 }

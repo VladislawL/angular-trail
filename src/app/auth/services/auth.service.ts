@@ -7,13 +7,10 @@ import {User, UserSignUp} from "../models/user";
   providedIn: 'root'
 })
 export class AuthService {
-  isLoggedInSubject = new BehaviorSubject<boolean>(false);
 
   private apiUrl = 'http://localhost:3000';
 
-  constructor(private http: HttpClient) {
-    this.isLoggedInSubject.next(this.isAuthenticated());
-  }
+  constructor(private http: HttpClient) {}
 
   login(user: User): Observable<User | undefined> {
     const params = new HttpParams().appendAll({'email': user.email, 'password': user.password});
@@ -28,19 +25,5 @@ export class AuthService {
       password: userSignUp.password
     }
     return this.http.post<User>(`${this.apiUrl}/users`, user);
-  }
-
-  logout() {
-    localStorage.removeItem('authToken');
-    this.isLoggedInSubject.next(false);
-  }
-
-  isAuthenticated(): boolean {
-    return !!localStorage.getItem('authToken');
-  }
-
-  setAuthToken(token: string) {
-    localStorage.setItem('authToken', token);
-    this.isLoggedInSubject.next(true);
   }
 }

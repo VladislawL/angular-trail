@@ -1,7 +1,8 @@
-import {Component, EventEmitter, Output} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
 import {CommonModule} from "@angular/common";
 import {FilterParams} from "../../../product/models/product";
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'app-filter',
@@ -10,14 +11,17 @@ import {FilterParams} from "../../../product/models/product";
   templateUrl: './filter.component.html',
   styleUrl: './filter.component.css'
 })
-export class FilterComponent {
+export class FilterComponent implements OnInit {
 
   @Output()
   filterParams = new EventEmitter<FilterParams>();
 
   filterForm: FormGroup;
 
-  constructor(private fb: FormBuilder) {
+  constructor(
+    private fb: FormBuilder,
+    private route: ActivatedRoute
+  ) {
     this.filterForm = this.fb.group({
       minPrice: ['', [
         Validators.min(0)
@@ -28,6 +32,20 @@ export class FilterComponent {
       stock: [''],
       rating: [''],
       reviews: ['']
+    });
+  }
+
+  ngOnInit() {
+    this.route.queryParams.subscribe(params => {
+      const filterParams: FilterParams = {
+        minPrice: params['minPrice'] || '',
+        maxPrice: params['maxPrice'] || '',
+        stock: params['stock'] || '',
+        rating: params['rating'] || '',
+        reviews: params['reviews'] || '',
+        query: params['query'] || ''
+      };
+      this.filterForm.patchValue(filterParams);
     });
   }
 

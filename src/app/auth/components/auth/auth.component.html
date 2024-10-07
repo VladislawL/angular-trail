@@ -1,7 +1,9 @@
 <div class="auth-container">
   <form #authForm="ngForm" (ngSubmit)="onSubmit(authForm)" class="auth-form">
-    <h2 *ngIf="loginMode">Sign in</h2>
-    <h2 *ngIf="!loginMode">Sign up</h2>
+    <h2 *ngIf="loginMode; else signUp">Sign in</h2>
+    <ng-template #signUp>
+      <h2>Sign up</h2>
+    </ng-template>
 
     <div *ngIf="loginError" class="error-message">Invalid email or password.</div>
     <div *ngIf="signupError" class="error-message">Error during signup. Please try again.</div>
@@ -63,8 +65,10 @@
     </button>
 
     <div class="auth-toggle-link">
-      <div *ngIf="loginMode" class="signup-link">You don't have an account? Please, <a (click)="toggleMode(authForm)">click here to register!</a></div>
-      <div *ngIf="!loginMode" class="signup-link">Already have an account? <a (click)="toggleMode(authForm)">Sign in here!</a></div>
+      <div *ngIf="loginMode; else login" class="signup-link">You don't have an account? Please, <a (click)="toggleMode(authForm)">click here to register!</a></div>
+      <ng-template #login>
+        <div class="signup-link">Already have an account? <a (click)="toggleMode(authForm)">Sign in here!</a></div>
+      </ng-template>
     </div>
   </form>
 </div>

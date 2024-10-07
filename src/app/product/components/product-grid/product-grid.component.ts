@@ -1,11 +1,13 @@
-import {Component, Input, OnChanges, SimpleChanges, ViewEncapsulation} from '@angular/core';
+import {Component, OnInit, ViewEncapsulation} from '@angular/core';
 import {CommonModule} from "@angular/common";
 import {ProductTileComponent} from "../product-tile/product-tile.component";
 import {FilterParams, Product} from "../../models/product";
 import {ProductService} from "../../services/product.service";
 import {Observable} from "rxjs";
 import {SearchService} from "../../../search/services/search.service";
-import {isNotEmpty} from "../../../shared/utils/utils";
+import {FilterParamMapping} from "../../../search/model/filter-param-mapping";
+import {FilterBadge} from "../../../search/model/filter-badge";
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'app-product-grid',
@@ -15,41 +17,79 @@ import {isNotEmpty} from "../../../shared/utils/utils";
   styleUrl: './product-grid.component.css',
   encapsulation: ViewEncapsulation.None
 })
-export class ProductGridComponent implements OnChanges {
+export class ProductGridComponent implements OnInit {
 
-  @Input()
-  filterParams: FilterParams | undefined;
+  filterParams: FilterParams = {
+    query: '',
+    minPrice: '',
+    maxPrice: '',
+    stock: '',
+    rating: '',
+    reviews: ''
+  };
 
-  products$: Observable<Product[]>;
+  products$!: Observable<Product[]>;
+
+  filterBadges: FilterBadge[] = [];
+
+  filterParamMapping: FilterParamMapping = {
+    query: { label: 'Search' },
+    minPrice: { label: 'Min Price' },
+    maxPrice: { label: 'Max Price' },
+    stock: {
+      label: 'Stock',
+      valueProcessor: (value: string) => value === 'available' ? 'Available' : 'Not Available'
+    },
+    rating: {
+      label: 'Rating',
+      valueProcessor: (value: number) => value.toString()
+    },
+    reviews: {
+      label: 'Reviews',
+      valueProcessor: (value: string) => value === 'available' ? 'Present' : 'Not Present'
+    }
+  };
 
   constructor(
     private productService: ProductService,
-    private searchService: SearchService
-  ) {
-    this.products$ = this.productService.getProducts(this.filterParams);
-  }
+    private searchService: SearchService,
+    private route: ActivatedRoute
+  ) {}
 
-  ngOnChanges(changes: SimpleChanges): void {
-    if (changes['filterParams']) {
+  ngOnInit() {
+    this.route.queryParams.subscribe(params => {
+      this.filterParams = this.searchService.getFilterParams();
       this.products$ = this.productService.getProducts(this.filterParams);
-    }
+      this.updateFilterBadges();
+    });
   }
 
   hasFilters(): boolean {
-    if (!this.filterParams) {
-      return false;
-    }
+    return this.filterBadges.length > 0;
+  }
 
-    const { minPrice, maxPrice, stock, rating, reviews } = this.filterParams;
+  updateFilterBadges(): void {
+    this.filterBadges = [];
 
-    return [minPrice, maxPrice, stock, rating, reviews].some(filter => isNotEmpty(filter));
+    Object.keys(this.filterParamMapping).forEach(key => {
+      const filterValue = (this.filterParams as any)[key];
+      if (filterValue) {
+        const { label, valueProcessor } = this.filterParamMapping[key];
+        this.filterBadges.push({
+          key: key,
+          label: label,
+          value: valueProcessor ? valueProcessor(filterValue) : filterValue
+        });
+      }
+    });
   }
 
   removeFilter(filterKey: string): void {
     if (this.filterParams) {
       (this.filterParams as any)[filterKey] = undefined;
       this.products$ = this.productService.getProducts(this.filterParams);
-      this.searchService.updateUrlFilters(this.filterParams)
+      this.searchService.updateUrlFilters(this.filterParams);
+      this.updateFilterBadges();
     }
   }
 
@@ -64,5 +104,6 @@ export class ProductGridComponent implements OnChanges {
     };
     this.products$ = this.productService.getProducts(this.filterParams);
     this.searchService.updateUrlFilters(this.filterParams);
+    this.updateFilterBadges();
   }
 }

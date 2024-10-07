@@ -3,6 +3,7 @@ import { FormsModule, NgForm } from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { CommonModule } from '@angular/common';
+import {LoginService} from "../../services/login.service";
 
 @Component({
   selector: 'app-auth',
@@ -25,6 +26,7 @@ export class AuthComponent implements OnInit {
 
   constructor(
     private authService: AuthService,
+    private loginService: LoginService,
     private router: Router,
     private route: ActivatedRoute
   ) {}
@@ -64,7 +66,7 @@ export class AuthComponent implements OnInit {
           error: (err) => this.loginError = true,
           next: (user) => {
             if (user) {
-              this.authService.setAuthToken(user.id);
+              this.loginService.setAuthToken(user.id);
               this.router.navigate(['/']);
             } else {
               this.loginError = true;
